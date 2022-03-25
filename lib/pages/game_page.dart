@@ -67,7 +67,7 @@ class GamePage extends StatelessWidget {
 
   // 質問テキストの関数
   Widget _questionText() {
-    return  Text(
+    return Text(
       _pageProvider!.getCurrentQuestionText(), // APIの質問を取得する
       style: const TextStyle(
         color: Colors.white,
@@ -79,7 +79,10 @@ class GamePage extends StatelessWidget {
 
   Widget _trueButton() {
     return MaterialButton(
-      onPressed: () {},
+      onPressed: () {
+        _pageProvider
+            ?.answerQuestion("True"); // ボタンが押されたら、notifyListeners();を呼ぶ
+      },
       color: Colors.green,
       minWidth: _deviceWidth! * 0.80,
       height: _deviceHeight! * 0.10,
@@ -92,7 +95,9 @@ class GamePage extends StatelessWidget {
 
   Widget _falseButton() {
     return MaterialButton(
-      onPressed: () {},
+      onPressed: () {
+        _pageProvider?.answerQuestion("False"); // ボタンが押されたら、notifyListeners();を呼ぶ
+      },
       color: Colors.red,
       minWidth: _deviceWidth! * 0.80,
       height: _deviceHeight! * 0.10,
