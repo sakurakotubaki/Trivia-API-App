@@ -6,20 +6,26 @@ import 'package:dio/dio.dart';
 class GamePageProvider extends ChangeNotifier {
   final Dio _dio = Dio();
   final int _maxQuestions = 10; // 10回までカウント
+  final String difficultyLevel;
 
   List? questions;
   int _currentQuestionCount = 0; // 質問数
   int _correctCount = 0;
 
   BuildContext context;
-  GamePageProvider({required this.context}) {
+  GamePageProvider({required this.context, required this.difficultyLevel}) {
     _dio.options.baseUrl = 'https://opentdb.com/api.php';
     _getQuestionsFromAPI();
   }
   Future<void> _getQuestionsFromAPI() async {
+    print(difficultyLevel);
     var _response = await _dio.get(
       '',
-      queryParameters: {'amount': 10, 'type': 'boolean', 'difficulty': 'easy'},
+      queryParameters: {
+        'amount': 10,
+        'type': 'boolean',
+        'difficulty': difficultyLevel
+      },
     );
     // データーを保存
     var _data = jsonDecode(

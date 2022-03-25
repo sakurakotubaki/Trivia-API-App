@@ -3,9 +3,13 @@ import 'package:friviaa/providers/game_page_provider.dart';
 import 'package:provider/provider.dart';
 
 class GamePage extends StatelessWidget {
+  final String difficultyLevel;
+
   double? _deviceHeight, _deviceWidth;
   // このページでProviderを使用する予定を知らせる
   GamePageProvider? _pageProvider;
+
+  GamePage({required this.difficultyLevel});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +18,7 @@ class GamePage extends StatelessWidget {
     // 変更を通知しラップするWidget
     return ChangeNotifierProvider(
       // build関数によって渡されるコンテキスト
-      create: (_context) => GamePageProvider(context: context),
+      create: (_context) => GamePageProvider(context: context, difficultyLevel: difficultyLevel),
       child: _buildUI(),
     );
   }
@@ -96,7 +100,8 @@ class GamePage extends StatelessWidget {
   Widget _falseButton() {
     return MaterialButton(
       onPressed: () {
-        _pageProvider?.answerQuestion("False"); // ボタンが押されたら、notifyListeners();を呼ぶ
+        _pageProvider
+            ?.answerQuestion("False"); // ボタンが押されたら、notifyListeners();を呼ぶ
       },
       color: Colors.red,
       minWidth: _deviceWidth! * 0.80,

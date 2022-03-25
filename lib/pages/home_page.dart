@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage> {
       onPressed: () {
         Navigator.push(context,
             MaterialPageRoute(builder: (BuildContext _context) {
-          return GamePage(); // GamePageの画面へ遷移する
+          return GamePage(difficultyLevel: _difficultyTexts[_currentDifficultyLevel.toInt()].toLowerCase(),); // GamePageの画面へ遷移する
         }));
       },
       color: Colors.blue,
