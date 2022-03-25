@@ -67,9 +67,9 @@ class GamePage extends StatelessWidget {
 
   // 質問テキストの関数
   Widget _questionText() {
-    return const Text(
-      "Test Question 1, Nothing Interrestiong",
-      style: TextStyle(
+    return  Text(
+      _pageProvider!.getCurrentQuestionText(), // APIの質問を取得する
+      style: const TextStyle(
         color: Colors.white,
         fontSize: 25,
         fontWeight: FontWeight.w400,
