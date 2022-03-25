@@ -12,6 +12,8 @@ class _HomePageState extends State<HomePage> {
 
   double _currentDifficultyLevel = 0; // 難易度を設定
 
+  final List<String> _difficultyTexts = ["Easy", "Medium", "Hard"];
+
   @override
   Widget build(BuildContext context) {
     _deviceHeight = MediaQuery.of(context).size.height;
@@ -42,13 +44,25 @@ class _HomePageState extends State<HomePage> {
           "Frivia",
           style: TextStyle(
               color: Colors.white, fontSize: 50, fontWeight: FontWeight.w500),
-        )
+        ),
+        // indexに整数を渡す
+        Text(
+          _difficultyTexts[_currentDifficultyLevel.toInt()],
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.w500
+          ),
+        ),
       ],
     );
   }
 
   Widget _difficultySlider() {
     return Slider(
+        min: 0,
+        max: 2,
+        divisions: 2,
         value: _currentDifficultyLevel,
         onChanged: (_value) {
           // setStateで更新する。しないとスライダー動かない!
