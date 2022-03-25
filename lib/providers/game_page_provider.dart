@@ -7,6 +7,8 @@ class GamePageProvider extends ChangeNotifier {
   final Dio _dio = Dio();
   final int _maxQuestions = 10;
 
+  List? questions;
+
   BuildContext context;
   GamePageProvider({required this.context}) {
     _dio.options.baseUrl = 'https://opentdb.com/api.php';
@@ -21,6 +23,6 @@ class GamePageProvider extends ChangeNotifier {
     var _data = jsonDecode(
       _response.toString(),
     );
-    print(_data);
+    questions = _data['results'];
   }
 }
