@@ -25,6 +25,7 @@ class GamePageProvider extends ChangeNotifier {
       _response.toString(),
     );
     questions = _data['results'];
+    notifyListeners(); // 変わったら通知する
   }
 
   String getCurrentQuestionText() {
