@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 
 class GamePageProvider extends ChangeNotifier {
   final Dio _dio = Dio();
-  final int _maxQuestions = 10;
+  final int _maxQuestions = 10; // 10回までカウント
 
   List? questions;
   int _currentQuestionCount = 0; // 質問数
@@ -36,7 +36,42 @@ class GamePageProvider extends ChangeNotifier {
     bool isCorrect =
         questions![_currentQuestionCount]["correct_answer"] == _answer;
     _currentQuestionCount++;
-    print(isCorrect ? "Correct" : "InCorrect");
-    notifyListeners(); // 変更をクラスに通知
+    showDialog(
+        context: context,
+        builder: (BuildContext _context) {
+          return AlertDialog(
+            backgroundColor: isCorrect ? Colors.green : Colors.red,
+            title: Icon(
+              isCorrect ? Icons.check_circle : Icons.cancel_sharp,
+              color: Colors.white,
+            ),
+          );
+        });
+    await Future.delayed(const Duration(seconds: 1)); // 1秒ごに処理を開始する
+    Navigator.pop(context); // 元の画面に戻る
+    if (_currentQuestionCount == _maxQuestions) {
+      endGame(); // ゲームを終了
+    } else {
+      notifyListeners(); // 変更をクラスに通知
+    }
+  }
+
+  // ゲームを終了させる関数
+  Future<void> endGame() async {
+    showDialog(
+        context: context,
+        builder: (BuildContext _context) {
+          return const AlertDialog(
+            backgroundColor: Colors.blue,
+            title: Text(
+              "End Game!",
+              style: TextStyle(fontSize: 25, color: Colors.white),
+            ),
+            content: Text("Score: 0/0"),
+          );
+        });
+    await Future.delayed(const Duration(seconds: 3));
+    Navigator.pop(context);
+    Navigator.pop(context);
   }
 }
