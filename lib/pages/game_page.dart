@@ -21,9 +21,10 @@ class GamePage extends StatelessWidget {
 
   // UIコンポーネントの関数
   Widget _buildUI() {
-    return Builder( // BuilderでScaffoldをラップする
-      builder: (_context) {
-        _pageProvider = _context.watch<GamePageProvider>();
+    return Builder(// BuilderでScaffoldをラップする
+        builder: (_context) {
+      _pageProvider = _context.watch<GamePageProvider>();
+      if (_pageProvider!.questions != null) {
         return Scaffold(
           body: SafeArea(
             child: Container(
@@ -32,8 +33,14 @@ class GamePage extends StatelessWidget {
             ),
           ),
         );
+      } else {
+        return const Center(
+          child: CircularProgressIndicator(
+            color: Colors.white,
+          ),
+        );
       }
-    );
+    });
   }
 
   // ゲームのUI関数
